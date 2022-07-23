@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   Button,
   FlatList,
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -34,9 +35,11 @@ export default function App() {
           <Button title="submit" onPress={addTodoHandler} />
         </View>
       </View>
-        <View style={styles.clearButtonRoot}>
-          <Button style={styles.clearButton} title="Clear" onPress={() => setTodoTextList([])} />
-        </View>
+      <View style={styles.clearButtonRoot}>
+        <Pressable style={styles.clearButton} onPress={() => setTodoTextList([])}>
+          <Text style={styles.clearButtonText}>x</Text>
+        </Pressable>
+      </View>
       <View style={styles.todoListRoot}>
         {todoTextList.length > 0 && (
           <Text style={{ fontSize: 24 }}>Todo List...</Text>
@@ -45,7 +48,7 @@ export default function App() {
           todoTextList.map((todoText) => (
             <Text key={Math.random()} style={styles.todoText}>{todoText}</Text>
           ))} */}
-				 
+
         <FlatList
           data={todoTextList}
           renderItem={({ item, index, separators }) => (
@@ -63,7 +66,7 @@ const styles = StyleSheet.create({
   root: {
     backgroundColor: "white",
     padding: 20,
-    height: "100%",
+		height: "100%",
   },
   todoForm: {
     marginTop: 20,
@@ -88,18 +91,23 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 3,
     borderRadius: 10,
+  },
+  clearButtonRoot: {
+    position: "absolute",
+    right: 50,
+		bottom: 50,
+		zIndex: 100,
+  },
+  clearButton: {
+    backgroundColor: "red",
+    width: 50,
+    height: 50,
+    borderRadius: 100,
+    justifyContent: "center",
+    alignItems: "center",
 	},
-	clearButtonRoot: {
-		position: "absolute",
-		right: 50,
-		bottom: 100,
-		borderRadius: 50,
-		height: 150,
-		width: 150,
-		overflow: 'hidden',
-	},
-	clearButton: {
-		backgroundColor: "green",
-		padding: 10,
+	clearButtonText: {
+		color: "white",
+		fontSize: 30,
 	}
 });
